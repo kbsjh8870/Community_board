@@ -1,0 +1,55 @@
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>글쓰기</title>
+</head>
+<body>
+<h2>글 작성</h2>
+<form action="/post/write" method="post">
+    <input type="text" name="title" placeholder="제목 입력..">
+    <br>
+    <textarea name="content" placeholder="내용 입력.."></textarea>
+    <br>
+    <button type="submit">등록</button>
+</form>
+</body>
+</html>-->
+
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>글쓰기</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+<nav>
+    <span class="nav-brand">Community</span>
+    <div class="nav-links">
+        <a th:href="@{/post/list}">전체 글</a>
+        <a th:href="@{/user/logout}" class="btn-logout">로그아웃</a>
+    </div>
+</nav>
+
+<div class="form-wrap wide">
+    <a th:href="@{/post/list}" class="back-link">목록으로</a>
+    <h2>글 작성</h2>
+    <form action="/post/write" method="post">
+        <div class="form-group">
+            <label>제목</label>
+            <input type="text" name="title" placeholder="제목을 입력하세요">
+        </div>
+        <div class="form-group">
+            <label>내용</label>
+            <textarea name="content" placeholder="내용을 입력하세요"></textarea>
+        </div>
+        <button type="submit" class="btn-primary">등록</button>
+    </form>
+</div>
+
+</body>
+</html>

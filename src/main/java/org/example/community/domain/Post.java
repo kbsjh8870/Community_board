@@ -1,0 +1,45 @@
+package org.example.community.domain;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Table("post")
+public class Post {
+    @Id
+    private Long id;
+    private String title;
+    private String content;
+    private Long authorId;
+    private int viewCount;
+    private LocalDateTime createdAt;
+
+    // 작성일 포매팅
+    public String getFormattedCreatedAt() {
+        if (createdAt == null) return "";
+
+        LocalDateTime now = LocalDateTime.now();
+        long hours = ChronoUnit.HOURS.between(createdAt, now);
+
+        if (hours < 24) {
+            // 작성일이 하루가 지나기전 - HH:mm
+            return createdAt.format(DateTimeFormatter.ofPattern("HH:mm"));
+        } else {
+            // 작성일 하루 이상 - N일 전
+            long days = ChronoUnit.DAYS.between(createdAt, now);
+            return days + "일 전";
+        }
+    }
+}

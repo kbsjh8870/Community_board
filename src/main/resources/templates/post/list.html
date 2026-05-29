@@ -1,0 +1,106 @@
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Posting List</title>
+</head>
+<body>
+<h2>게시글 목록</h2>
+
+<a th:href="@{/post/list}">전체 글</a>
+<a th:href="@{/post/popular}">인기 글</a>
+<a th:href="@{/post/write}">글쓰기</a>
+<a th:href="@{/user/logout}">로그아웃</a>
+
+<form method="get" th:action="@{/post/search}">
+    <input type="text" name="keyword" placeholder="제목 검색">
+    <button type="submit">검색</button>
+</form>
+
+<table>
+    <tr>
+        <th>No.</th>
+        <th>제목</th>
+        <th>조회수</th>
+        <th>작성일</th>
+    </tr>
+    <tr th:each="post:${posts}">
+        <td th:text="${post.id}"></td>
+        <td><a th:href="@{/post/{id}(id=${post.id})}" th:text="${post.title}"></a> </td>
+        <td th:text="${post.viewCount}"></td>
+        <td th:text="${post.formattedCreatedAt}"></td>
+    </tr>
+</table>
+
+<div th:if="${posts.totalPages>1}">
+    <ul>
+        <li th:each="i:${#numbers.sequence(1,posts.totalPages)}">
+            <a th:href="@{/post/list(page=${i - 1})}" th:text="${i}" th:classappend="${posts.number == i - 1}?'active'"></a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>-->
+
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 목록</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+<nav>
+    <span class="nav-brand">Community</span>
+    <div class="nav-links">
+        <a th:href="@{/post/list}">전체 글</a>
+        <a th:href="@{/post/popular}">인기 글</a>
+        <a th:href="@{/post/write}" class="btn-write">글쓰기</a>
+        <a th:href="@{/user/logout}" class="btn-logout">로그아웃</a>
+    </div>
+</nav>
+
+<div class="search-wrap">
+    <form method="get" th:action="@{/post/search}">
+        <input type="text" name="keyword" placeholder="제목 검색">
+        <button type="submit" class="btn-primary">검색</button>
+    </form>
+</div>
+
+<div class="page-title"><h2>게시글 목록</h2></div>
+
+<div class="table-wrap">
+    <table>
+        <thead>
+        <tr>
+            <th>No.</th>
+            <th>제목</th>
+            <th>조회수</th>
+            <th>작성일</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="post:${posts}">
+            <td th:text="${post.id}"></td>
+            <td><a th:href="@{/post/{id}(id=${post.id})}" th:text="${post.title}"></a></td>
+            <td th:text="${post.viewCount}"></td>
+            <td th:text="${post.formattedCreatedAt}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="pagination" th:if="${posts.totalPages > 1}">
+    <ul>
+        <li th:each="i:${#numbers.sequence(1, posts.totalPages)}">
+            <a th:href="@{/post/list(page=${i - 1})}" th:text="${i}"
+               th:classappend="${posts.number == i - 1} ? 'active'"></a>
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>

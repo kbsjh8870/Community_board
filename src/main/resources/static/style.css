@@ -1,0 +1,385 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=DM+Serif+Display&display=swap');
+
+/* ─── Variables ─────────────────────────────────────────── */
+:root {
+    --bg:        #0f0f0f;
+    --surface:   #1a1a1a;
+    --border:    #2e2e2e;
+    --accent:    #c8f04a;
+    --text:      #e8e8e8;
+    --muted:     #777;
+    --danger:    #ff5c5c;
+    --radius:    6px;
+    --max-w:     860px;
+}
+
+/* ─── Reset ──────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ─── Layout ─────────────────────────────────────────────── */
+.container {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* ─── Navbar ─────────────────────────────────────────────── */
+nav {
+    border-bottom: 1px solid var(--border);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: var(--max-w);
+    margin: 0 auto;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.nav-brand {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    letter-spacing: -0.5px;
+    color: var(--accent);
+}
+
+.nav-links {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.nav-links a {
+    padding: 6px 14px;
+    border-radius: var(--radius);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    transition: color .15s, background .15s;
+}
+
+.nav-links a:hover { color: var(--text); background: var(--surface); }
+
+.nav-links a.active { color: var(--accent); }
+
+.nav-links a.btn-write {
+    background: var(--accent);
+    color: #0f0f0f;
+    font-weight: 700;
+}
+
+.nav-links a.btn-write:hover { background: #d8ff5a; }
+
+.nav-links a.btn-logout {
+    color: var(--muted);
+    border: 1px solid var(--border);
+}
+
+.nav-links a.btn-logout:hover { color: var(--danger); border-color: var(--danger); }
+
+/* ─── Search ─────────────────────────────────────────────── */
+.search-wrap {
+    max-width: var(--max-w);
+    margin: 24px auto 0;
+    padding: 0 24px;
+}
+
+.search-wrap form {
+    display: flex;
+    gap: 8px;
+}
+
+.search-wrap input[type="text"] {
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 9px 14px;
+    border-radius: var(--radius);
+    font-size: 13px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color .15s;
+}
+
+.search-wrap input[type="text"]:focus { border-color: var(--accent); }
+.search-wrap input[type="text"]::placeholder { color: var(--muted); }
+
+/* ─── Buttons ────────────────────────────────────────────── */
+button, .btn {
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 9px 20px;
+    border-radius: var(--radius);
+    border: none;
+    transition: opacity .15s, background .15s;
+}
+
+button:hover, .btn:hover { opacity: .85; }
+
+.btn-primary {
+    background: var(--accent);
+    color: #0f0f0f;
+}
+
+.btn-secondary {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+
+.btn-danger {
+    background: transparent;
+    color: var(--danger);
+    border: 1px solid var(--danger);
+}
+
+.btn-danger:hover { background: var(--danger); color: #fff; opacity: 1; }
+
+/* ─── Page Title ─────────────────────────────────────────── */
+.page-title {
+    max-width: var(--max-w);
+    margin: 32px auto 20px;
+    padding: 0 24px;
+}
+
+.page-title h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    font-weight: 400;
+    letter-spacing: -0.5px;
+}
+
+/* ─── Post Table ─────────────────────────────────────────── */
+.table-wrap {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead tr {
+    border-bottom: 2px solid var(--border);
+}
+
+thead th {
+    text-align: left;
+    padding: 10px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--muted);
+}
+
+tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background .1s;
+}
+
+tbody tr:hover { background: var(--surface); }
+
+tbody td {
+    padding: 14px 12px;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+tbody td:nth-child(2) { color: var(--text); }
+
+tbody td a {
+    color: var(--text);
+    font-weight: 500;
+    transition: color .15s;
+}
+
+tbody td a:hover { color: var(--accent); }
+
+/* No. 열 좁게 */
+thead th:first-child,
+tbody td:first-child { width: 60px; }
+
+/* ─── Pagination ─────────────────────────────────────────── */
+.pagination {
+    max-width: var(--max-w);
+    margin: 28px auto;
+    padding: 0 24px;
+}
+
+.pagination ul {
+    list-style: none;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.pagination ul li a {
+    display: inline-block;
+    min-width: 34px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 600;
+    transition: all .15s;
+}
+
+.pagination ul li a:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.pagination ul li a.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #0f0f0f;
+}
+
+/* ─── Detail Page ────────────────────────────────────────── */
+.detail-wrap {
+    max-width: var(--max-w);
+    margin: 40px auto;
+    padding: 0 24px;
+}
+
+.detail-header {
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 20px;
+    margin-bottom: 24px;
+}
+
+.detail-header h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    font-weight: 400;
+    letter-spacing: -0.3px;
+    margin-bottom: 10px;
+}
+
+.detail-meta {
+    display: flex;
+    gap: 16px;
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.detail-content {
+    font-size: 15px;
+    line-height: 1.9;
+    color: var(--text);
+    white-space: pre-wrap;
+    margin-bottom: 32px;
+}
+
+.detail-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* ─── Form Pages ─────────────────────────────────────────── */
+.form-wrap {
+    max-width: 480px;
+    margin: 80px auto;
+    padding: 0 24px;
+}
+
+.form-wrap h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    font-weight: 400;
+    margin-bottom: 28px;
+    letter-spacing: -0.3px;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--muted);
+    margin-bottom: 6px;
+}
+
+input[type="text"],
+input[type="password"],
+textarea {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 10px 14px;
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color .15s;
+    resize: vertical;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+textarea:focus { border-color: var(--accent); }
+
+input::placeholder, textarea::placeholder { color: var(--muted); }
+
+textarea { min-height: 180px; }
+
+.form-footer {
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.form-footer a { color: var(--accent); }
+
+/* write/update form 넓게 */
+.form-wrap.wide { max-width: var(--max-w); margin-top: 40px; }
+.form-wrap.wide textarea { min-height: 320px; }
+
+/* ─── Back link ──────────────────────────────────────────── */
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 24px;
+    transition: color .15s;
+}
+
+.back-link:hover { color: var(--text); }
+.back-link::before { content: '←'; }
+
+/* ─── Empty state ────────────────────────────────────────── */
+.empty {
+    text-align: center;
+    padding: 60px 0;
+    color: var(--muted);
+    font-size: 14px;
+}

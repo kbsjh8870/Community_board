@@ -1,0 +1,70 @@
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>글 조회</title>
+</head>
+<body>
+<h2 th:text="${posting.title}"></h2>
+<p th:text="${posting.content}"></p>
+<p>조회수: <span th:text="${posting.viewCount}"></span></p>
+<p>작성일: <span th:text="${posting.formattedCreatedAt}"></span></p>
+
+<div th:if="${session.loginUser != null and session.loginUser.id == posting.authorId}">
+    <form method="get" th:action="@{/post/{id}/update(id=${posting.id})}">
+        <button type="submit">수정</button>
+    </form>
+
+    <form method="get" th:action="@{/post/{id}/delete(id=${posting.id})}">
+        <button type="submit">삭제</button>
+    </form>
+</div>
+
+</body>
+</html>-->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${posting.title}">글 조회</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+<nav>
+    <span class="nav-brand">Community</span>
+    <div class="nav-links">
+        <a th:href="@{/post/list}">전체 글</a>
+        <a th:href="@{/post/popular}">인기 글</a>
+        <a th:href="@{/post/write}" class="btn-write">글쓰기</a>
+        <a th:href="@{/user/logout}" class="btn-logout">로그아웃</a>
+    </div>
+</nav>
+
+<div class="detail-wrap">
+    <a th:href="@{/post/list}" class="back-link">목록으로</a>
+
+    <div class="detail-header">
+        <h2 th:text="${posting.title}"></h2>
+        <div class="detail-meta">
+            <span>조회수 <span th:text="${posting.viewCount}"></span></span>
+            <span th:text="${posting.formattedCreatedAt}"></span>
+        </div>
+    </div>
+
+    <div class="detail-content" th:text="${posting.content}"></div>
+
+    <div class="detail-actions" th:if="${session.loginUser != null and session.loginUser.id == posting.authorId}">
+        <form method="get" th:action="@{/post/{id}/update(id=${posting.id})}">
+            <button type="submit" class="btn-secondary">수정</button>
+        </form>
+        <form method="get" th:action="@{/post/{id}/delete(id=${posting.id})}">
+            <button type="submit" class="btn-danger">삭제</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

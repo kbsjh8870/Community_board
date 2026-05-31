@@ -2,8 +2,10 @@ package org.example.community.controller;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.example.community.domain.Comment;
 import org.example.community.domain.Post;
 import org.example.community.domain.User;
+import org.example.community.service.CommentService;
 import org.example.community.service.PostService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +23,7 @@ import java.util.List;
 public class PostController {
 
     private final PostService postService;
+    private final CommentService commentService;
 
     // 전체 글
     @GetMapping("/list")
@@ -37,6 +40,8 @@ public class PostController {
         User loginUser = (User)session.getAttribute("loginUser");
 
         model.addAttribute("posting",postService.findPostingByIdAndCount(id,loginUser));
+        model.addAttribute("comments",commentService.findCommentsByPostId(id));
+
         return "post/detail";
     }
 

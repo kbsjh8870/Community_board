@@ -70,6 +70,4 @@ public class PostService {
     public void deletePosting(Long id){
         postRepository.deleteById(id);
     }
-
-    // TODO: 댓글 기능 추가해보기
 }

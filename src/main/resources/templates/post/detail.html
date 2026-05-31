@@ -66,5 +66,34 @@
     </div>
 </div>
 
+<div class="comment-section">
+    <h3>댓글 <span th:text="${#lists.size(comments)}"></span>개</h3>
+
+    <div th:each="comment:${comments}" class="comment-item">
+        <div class="comment-body">
+        <span class="comment-text" th:text="${comment.comments}"></span>
+        <span class="comment-meta" th:text="${comment.formattedCreatedAt}"></span>
+        </div>
+
+        <form th:action="@{/comment/{id}/delete(id=${comment.id})}" method="post" th:if="${session.loginUser!=null and session.loginUser.id == comment.authorId}">
+            <input type="hidden" name="postId" th:value="${posting.id}">
+            <button type="submit">삭제</button>
+        </form>
+    </div>
+
+    <div th:if="${session.loginUser!=null}" class="comment-form">
+        <form th:action="@{/comment/write}" method="post">
+            <input type="hidden" name="postId" th:value="${posting.id}">
+            <textarea name="comments" placeholder="댓글을 입력하세요"></textarea>
+            <button type="submit" class="btn-primary">댓글 작성</button>
+        </form>
+    </div>
+
+</div>
+
+
+
+
+
 </body>
 </html>

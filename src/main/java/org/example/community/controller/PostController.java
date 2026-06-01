@@ -32,6 +32,7 @@ public class PostController {
     public String allPosts(Model model, @PageableDefault(size = 5,sort = "id",direction = Sort.Direction.ASC)Pageable pageable){
         Page<PostListDto> posts =  postService.findAllPostingWithNickname(pageable);
         model.addAttribute("posts",posts);
+        model.addAttribute("pageTitle","전체 글");
 
         return "post/list";
     }
@@ -113,6 +114,7 @@ public class PostController {
     @GetMapping("/search")
     public String search(@RequestParam String keyword,Model model,@PageableDefault(size = 5,sort = "id")Pageable pageable){
         model.addAttribute("posts",postService.findTitleWithNickname(keyword,pageable));
+        model.addAttribute("pageTitle","검색 결과");
 
         return "post/list";
     }
@@ -121,6 +123,7 @@ public class PostController {
     @GetMapping("/popular")
     public String popularPostings(Model model,@PageableDefault(size = 5,sort = "viewCount",direction = Sort.Direction.DESC)Pageable pageable){
         model.addAttribute("posts",postService.findPopularPostingWithNickname(pageable));
+        model.addAttribute("pageTitle","인기 글");
 
         return "post/list";
     }

@@ -54,7 +54,7 @@
 <body>
 
 <nav>
-    <span class="nav-brand">Community</span>
+    <a th:href="@{/post/list}" class="nav-brand">Community</a>
     <div class="nav-links">
         <span th:text="${session.loginUser.nickname}"></span>
         <a th:href="@{/post/list}">전체 글</a>
@@ -71,7 +71,7 @@
     </form>
 </div>
 
-<div class="page-title"><h2>게시글 목록</h2></div>
+<div class="page-title"><h2 th:text="${pageTitle}"></h2></div>
 
 <div class="table-wrap">
     <table>

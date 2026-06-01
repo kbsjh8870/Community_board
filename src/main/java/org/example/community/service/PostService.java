@@ -3,7 +3,9 @@ package org.example.community.service;
 import lombok.RequiredArgsConstructor;
 import org.example.community.domain.Post;
 import org.example.community.domain.User;
+import org.example.community.dto.PostListDto;
 import org.example.community.repository.PostRepository;
+import org.example.community.repository.PostRepositoryCustom;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -16,25 +18,38 @@ import java.util.List;
 public class PostService {
 
     private final PostRepository postRepository;
+    private final PostRepositoryCustom postRepositoryCustom;
 
     /*// 전체글
     public List<Post> findAllPosting(){
         return postRepository.findAllOrderByCreatedAtDesc();
     }*/
 
-    // 전체글 - PagingSort
+    /*// 전체글 - PagingSort
     public Page<Post> findAllPosting(Pageable pageable){
         return postRepository.findAll(pageable);
+    }*/
+
+    public Page<PostListDto> findAllPostingWithNickname(Pageable pageable){
+        return postRepositoryCustom.findAllPostingWithNickname(pageable);
     }
 
-    // 인기글 - PagingSort
+    /*// 인기글 - PagingSort
     public Page<Post> popularPosting(Pageable pageable){
         return postRepository.findAll(pageable);
+    }*/
+
+    public Page<PostListDto> findPopularPostingWithNickname(Pageable pageable){
+        return postRepositoryCustom.findPopularWithNickname(pageable);
     }
 
-    // 글 제목으로 검색
+    /*// 글 제목으로 검색
     public Page<Post> searchPosting(String keyword,Pageable pageable){
         return postRepository.findByTitleContaining(keyword,pageable);
+    }*/
+
+    public Page<PostListDto> findTitleWithNickname(String keyword,Pageable pageable){
+        return postRepositoryCustom.findByTitleWithNickname(keyword, pageable);
     }
 
     // 글 조회 (조회수 카운팅)

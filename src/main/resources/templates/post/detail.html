@@ -36,6 +36,7 @@
 <nav>
     <span class="nav-brand">Community</span>
     <div class="nav-links">
+        <span th:text="${session.loginUser.nickname}"></span>
         <a th:href="@{/post/list}">전체 글</a>
         <a th:href="@{/post/popular}">인기 글</a>
         <a th:href="@{/post/write}" class="btn-write">글쓰기</a>
@@ -44,7 +45,7 @@
 </nav>
 
 <div class="detail-wrap">
-    <a th:href="@{/post/list}" class="back-link">목록으로</a>
+    <a th:href="@{/post/list(page=${page})}" class="back-link">목록으로</a>
 
     <div class="detail-header">
         <h2 th:text="${posting.title}"></h2>

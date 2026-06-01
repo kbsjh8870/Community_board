@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.community.domain.Comment;
 import org.example.community.domain.Post;
 import org.example.community.domain.User;
+import org.example.community.dto.PostListDto;
 import org.example.community.service.CommentService;
 import org.example.community.service.PostService;
 import org.springframework.data.domain.Page;
@@ -28,7 +29,7 @@ public class PostController {
     // 전체 글
     @GetMapping("/list")
     public String allPosts(Model model, @PageableDefault(size = 5,sort = "id",direction = Sort.Direction.ASC)Pageable pageable){
-        Page<Post> posts =  postService.findAllPosting(pageable);
+        Page<PostListDto> posts =  postService.findAllPostingWithNickname(pageable);
         model.addAttribute("posts",posts);
 
         return "post/list";
@@ -36,11 +37,12 @@ public class PostController {
 
     // 글 상세조회
     @GetMapping("/{id}")
-    public String detailPost(@PathVariable Long id, Model model,HttpSession session){
+    public String detailPost(@PathVariable Long id, Model model, HttpSession session, @RequestParam int page){
         User loginUser = (User)session.getAttribute("loginUser");
 
         model.addAttribute("posting",postService.findPostingByIdAndCount(id,loginUser));
         model.addAttribute("comments",commentService.findCommentsByPostId(id));
+        model.addAttribute("page",page);
 
         return "post/detail";
     }
@@ -103,7 +105,7 @@ public class PostController {
     // 검색 (글 제목)
     @GetMapping("/search")
     public String search(@RequestParam String keyword,Model model,@PageableDefault(size = 5,sort = "id")Pageable pageable){
-        model.addAttribute("posts",postService.searchPosting(keyword,pageable));
+        model.addAttribute("posts",postService.findTitleWithNickname(keyword,pageable));
 
         return "post/list";
     }
@@ -111,7 +113,7 @@ public class PostController {
     // 인기글
     @GetMapping("/popular")
     public String popularPostings(Model model,@PageableDefault(size = 5,sort = "viewCount",direction = Sort.Direction.DESC)Pageable pageable){
-        model.addAttribute("posts",postService.popularPosting(pageable));
+        model.addAttribute("posts",postService.findPopularPostingWithNickname(pageable));
 
         return "post/list";
     }

@@ -19,6 +19,6 @@ public interface PostRepository extends CrudRepository<Post,Long>, PagingAndSort
     List<Post> PopularPosts();*/
     // 페이징소트로 변환
 
-    // 키워드로 제목 검색
-    Page<Post> findByTitleContaining(String title, Pageable pageable);
+    /*// 키워드로 제목 검색
+    Page<Post> findByTitleContaining(String title, Pageable pageable);*/
 }

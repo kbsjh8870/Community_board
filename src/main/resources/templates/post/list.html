@@ -56,6 +56,7 @@
 <nav>
     <span class="nav-brand">Community</span>
     <div class="nav-links">
+        <span th:text="${session.loginUser.nickname}"></span>
         <a th:href="@{/post/list}">전체 글</a>
         <a th:href="@{/post/popular}">인기 글</a>
         <a th:href="@{/post/write}" class="btn-write">글쓰기</a>
@@ -79,14 +80,17 @@
             <th>No.</th>
             <th>제목</th>
             <th>조회수</th>
+            <th>작성자</th>
             <th>작성일</th>
         </tr>
         </thead>
+
         <tbody>
         <tr th:each="post:${posts}">
             <td th:text="${post.id}"></td>
-            <td><a th:href="@{/post/{id}(id=${post.id})}" th:text="${post.title}"></a></td>
+            <td><a th:href="@{/post/{id}(id=${post.id}, page=${posts.number})}" th:text="${post.title}"></a></td>
             <td th:text="${post.viewCount}"></td>
+            <td th:text="${post.nickname}"></td>
             <td th:text="${post.formattedCreatedAt}"></td>
         </tr>
         </tbody>

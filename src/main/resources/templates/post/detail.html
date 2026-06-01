@@ -68,7 +68,7 @@
 </div>
 
 <div class="comment-section">
-    <h3>댓글 <span th:text="${#lists.size(comments)}"></span>개</h3>
+    <h3>댓글 <span th:text="${commentCount}"></span>개</h3>
 
     <div th:each="cwr:${comments}" class="comment-item">
 
@@ -110,7 +110,7 @@
             <form th:action="@{/comment/write}" method="post">
                 <input type="hidden" name="postId" th:value="${posting.id}">
                 <input type="hidden" name="parentId" th:value="${cwr.originComment.id}">
-                <input type="text" name="comments" placeholder="대댓글 입력">
+                <input type="text" name="comments" placeholder="대댓글 입력" class="reply-input-margin">
                 <button type="submit">작성</button>
             </form>
         </div>

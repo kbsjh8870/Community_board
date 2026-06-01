@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.community.domain.Comment;
 import org.example.community.domain.Post;
 import org.example.community.domain.User;
+import org.example.community.dto.CommentWithRepliesDto;
 import org.example.community.dto.PostListDto;
 import org.example.community.service.CommentService;
 import org.example.community.service.PostService;
@@ -40,8 +41,14 @@ public class PostController {
     public String detailPost(@PathVariable Long id, Model model, HttpSession session, @RequestParam(defaultValue = "0") int page){
         User loginUser = (User)session.getAttribute("loginUser");
 
+        List<CommentWithRepliesDto> comments = commentService.findCommentsByPostId(id);
+        int totalCommentCount = comments.stream()
+                        .mapToInt(c->1+c.getReplies().size())
+                                .sum();
+
         model.addAttribute("posting",postService.findPostingByIdAndCount(id,loginUser));
-        model.addAttribute("comments",commentService.findCommentsByPostId(id));
+        model.addAttribute("comments",comments);
+        model.addAttribute("commentCount",totalCommentCount);
         model.addAttribute("page",page);
 
         return "post/detail";

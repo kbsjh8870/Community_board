@@ -25,6 +25,7 @@ public class Comment {
     @Column("comment") // 테이블 이름, 필드 comment로 같아서 @Column 안쓰니 오류
     private String comments;
     private LocalDateTime createdAt;
+    private Long parentId;
 
     // 작성일 포매팅
     public String getFormattedCreatedAt() {

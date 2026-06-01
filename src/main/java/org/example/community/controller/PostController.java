@@ -37,7 +37,7 @@ public class PostController {
 
     // 글 상세조회
     @GetMapping("/{id}")
-    public String detailPost(@PathVariable Long id, Model model, HttpSession session, @RequestParam int page){
+    public String detailPost(@PathVariable Long id, Model model, HttpSession session, @RequestParam(defaultValue = "0") int page){
         User loginUser = (User)session.getAttribute("loginUser");
 
         model.addAttribute("posting",postService.findPostingByIdAndCount(id,loginUser));

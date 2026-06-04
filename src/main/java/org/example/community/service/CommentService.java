@@ -4,7 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.example.community.domain.Comment;
 import org.example.community.dto.CommentWithRepliesDto;
 import org.example.community.repository.CommentRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -44,8 +47,14 @@ public class CommentService {
     }
 
     // 댓글 삭제
+    @Transactional
     public void deleteComment(Long commentId){
+        commentRepository.deleteByParentId(commentId);
         commentRepository.deleteById(commentId);
     }
 
+    // 내 댓글들 찾기
+    public Page<Comment> findMyComments(Long id, Pageable pageable){
+        return commentRepository.findCommentsByAuthorId(id,pageable);
+    }
 }

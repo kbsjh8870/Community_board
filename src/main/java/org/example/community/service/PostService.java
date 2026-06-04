@@ -85,4 +85,9 @@ public class PostService {
     public void deletePosting(Long id){
         postRepository.deleteById(id);
     }
+
+    // 내 글들 찾기
+    public Page<Post> findMyPosts(Long id, Pageable pageable){
+        return postRepository.findPostsByAuthorId(id,pageable);
+    }
 }

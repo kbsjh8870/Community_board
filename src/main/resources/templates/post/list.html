@@ -56,7 +56,7 @@
 <nav>
     <a th:href="@{/post/list}" class="nav-brand">Community</a>
     <div class="nav-links">
-        <span th:text="${session.loginUser.nickname}"></span>
+        <a th:href="@{/user/{id}/profile(id=${session.loginUser.id})}" class="nav-nickname" th:text="${session.loginUser.nickname}"></a>
         <a th:href="@{/post/list}">전체 글</a>
         <a th:href="@{/post/popular}">인기 글</a>
         <a th:href="@{/post/write}" class="btn-write">글쓰기</a>

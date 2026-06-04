@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>마이페이지</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+<nav>
+    <a th:href="@{/post/list}" class="nav-brand">Community</a>
+    <div class="nav-links">
+        <a th:href="@{/user/{id}/profile(id=${session.loginUser.id})}"
+           class="nav-nickname" th:text="${session.loginUser.nickname}"></a>
+        <a th:href="@{/post/list}">전체 글</a>
+        <a th:href="@{/post/popular}">인기 글</a>
+        <a th:href="@{/post/write}" class="btn-write">글쓰기</a>
+        <a th:href="@{/user/logout}" class="btn-logout">로그아웃</a>
+    </div>
+</nav>
+
+<div class="detail-wrap">
+    <a th:href="@{/post/list}" class="back-link">목록으로</a>
+
+    <div class="detail-header">
+        <h2 th:text="${summary.nickname} + '님의 프로필'"></h2>
+        <div class="detail-meta">
+            <span>가입일 <span th:text="${#temporals.format(summary.createdAt, 'yyyy-MM-dd')}"></span></span>
+        </div>
+    </div>
+
+    <!-- 내가 쓴 글 -->
+    <div class="page-title" style="margin: 0 0 16px;">
+        <h2 style="font-size: 18px;">작성한 게시글 (<span th:text="${summary.postCount}"></span>개)</h2>
+    </div>
+    <div class="table-wrap" style="padding: 0;">
+        <table>
+            <thead>
+            <tr>
+                <th>No.</th>
+                <th>제목</th>
+                <th>조회수</th>
+                <th>작성일</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="post:${myPosts}">
+                <td th:text="${post.id}"></td>
+                <td><a th:href="@{/post/{id}(id=${post.id})}" th:text="${post.title}"></a></td>
+                <td th:text="${post.viewCount}"></td>
+                <td th:text="${post.formattedCreatedAt}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 내가 쓴 댓글 -->
+    <div class="page-title" style="margin: 32px 0 16px;">
+        <h2 style="font-size: 18px;">작성한 댓글 (<span th:text="${summary.commentCount}"></span>개)</h2>
+    </div>
+    <div class="table-wrap" style="padding: 0;">
+        <table>
+            <thead>
+            <tr>
+                <th>내용</th>
+                <th>작성일</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="comment:${myComments}">
+                <td><a th:href="@{/post/{id}(id=${comment.postId})}" th:text="${comment.comments}"></a></td>
+                <td th:text="${comment.formattedCreatedAt}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 버튼 -->
+    <div class="detail-actions" style="margin-top: 32px;"
+         th:if="${session.loginUser != null and session.loginUser.id == summary.userId}">
+        <a th:href="@{/user/{id}/editProfile(id=${summary.userId})}" class="btn btn-secondary">내 정보 수정</a>
+        <a href="#" class="btn btn-danger">회원 탈퇴</a>
+    </div>
+</div>
+
+</body>
+</html>

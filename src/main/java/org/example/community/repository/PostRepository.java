@@ -7,6 +7,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface PostRepository extends CrudRepository<Post,Long>, PagingAndSortingRepository<Post,Long> {
     /*// 최신순 전체글
@@ -21,4 +23,9 @@ public interface PostRepository extends CrudRepository<Post,Long>, PagingAndSort
 
     /*// 키워드로 제목 검색
     Page<Post> findByTitleContaining(String title, Pageable pageable);*/
+
+    Long countByAuthorId(Long authorId);
+    
+    Page<Post> findPostsByAuthorId(Long authorId,Pageable pageable);
+
 }

@@ -23,6 +23,10 @@
     <a th:href="@{/user/{id}/profile(id=${user.id})}" class="back-link">프로필로</a>
     <h2>내 정보 수정</h2>
 
+    <div th:if="${errorMsg}" class="error-msg">
+        <span th:text="${errorMsg}"></span>
+    </div>
+
     <form th:action="@{/user/{id}/editProfile(id=${user.id})}" th:object="${user}" method="post">
 
         <div class="form-group">

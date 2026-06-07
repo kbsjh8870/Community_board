@@ -60,6 +60,8 @@ public class UserService {
             throw new RuntimeException("새 비밀번호는 현재 비밀번호와 달라야 합니다");
         if (!newPW.equals(confirmPW))
             throw new RuntimeException("새 비밀번호와 확인 비밀번호가 다릅니다");
+        if (!(newPW.length()>=2))
+            throw new RuntimeException("비밀번호는 2자리 이상이여야 합니다");
 
         loginUser.setPassword(newPW);
         userRepository.save(loginUser);

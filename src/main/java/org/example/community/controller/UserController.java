@@ -16,6 +16,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequiredArgsConstructor
@@ -93,9 +94,16 @@ public class UserController {
                               @RequestParam String currentPW,
                               @RequestParam String newPW,
                               @RequestParam String confirmPW,
-                              HttpSession session) {
-        User loginUser = (User) session.getAttribute("loginUser");
-        userService.updatePassword(currentPW, newPW, confirmPW, loginUser);
+                              HttpSession session,
+                              RedirectAttributes redirectAttributes) {
+
+        try {
+            User loginUser = (User) session.getAttribute("loginUser");
+            userService.updatePassword(currentPW, newPW, confirmPW, loginUser);
+        } catch (RuntimeException e) {
+            redirectAttributes.addFlashAttribute("errorMsg", e.getMessage());
+            return "redirect:/user/" + id + "/editProfile";
+        }
 
         // 세션 최신화
         session.setAttribute("loginUser", userService.findUserById(id));
